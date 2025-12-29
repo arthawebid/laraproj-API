@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Data Teman</title>
+</head>
+<body>
+
+    <h3>Data Teman</h3>
+    <div id="vDataTeman"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        const urlApi = "http://localhost:8000/teman"
+
+        function loadTeman(){
+            $.ajax({
+                url: urlApi,
+                method: "GET",
+                dataType: "json",
+                success: function(res){
+                    console.log(res)
+                    let txhtml = "<ul>"
+                    nama = res.data[0].nama
+                    res.data.forEach(item => {
+                        txhtml +=`${item.nama} - ${item.alamat}`
+                    });  
+                    
+                    txhtml +="</ul>"
+                    console.log(txhtml)
+                    $("#vDataTeman").html(txhtml)
+                }
+            });
+            
+        }
+
+        $(document).ready(function(){
+            loadTeman();
+        })
+    </script>
+</body>
+</html>
